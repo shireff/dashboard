@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="dashboard-page">
+      <header class="dashboard-header">
+        <div class="header-content">
+          <h1>Post Management Dashboard</h1>
+          <div class="header-actions">
+            <button id="logout-btn" class="btn btn-secondary">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <nav class="sidebar">
+          <ul class="nav-menu">
+            <li>
+              <a href="#" class="nav-link active" data-view="posts">Posts</a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-view="create">Create Post</a>
+            </li>
+          </ul>
+        </nav>
+
+        <main class="main-content">
+          <div id="posts-view" class="content-view active">
+            <div class="view-header">
+              <h2>Posts Management</h2>
+              <button id="create-post-btn" class="btn btn-primary">
+                Create New Post
+              </button>
+            </div>
+
+            <div class="table-controls">
+              <div class="search-container">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Search posts by title or content..."
+                />
+              </div>
+              <div class="control-group">
+                <select id="page-size-select">
+                  <option value="5">5 per page</option>
+                  <option value="10" selected>10 per page</option>
+                  <option value="20">20 per page</option>
+                </select>
+                <select id="sort-select">
+                  <option value="id-asc">ID (ASC)</option>
+                  <option value="id-desc">ID (DESC)</option>
+                  <option value="title-asc">Title (A-Z)</option>
+                  <option value="title-desc">Title (Z-A)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="loading-state" class="state-message">
+              <p>Loading posts...</p>
+            </div>
+
+            <div id="error-state" class="state-message error hidden">
+              <p>Error loading posts</p>
+              <button id="retry-btn" class="btn btn-secondary">Retry</button>
+            </div>
+
+            <div id="empty-state" class="state-message hidden">
+              <p>No posts found</p>
+            </div>
+
+            <div id="posts-table-container" class="hidden">
+              <table class="posts-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="posts-table-body"></tbody>
+              </table>
+
+              <div class="pagination">
+                <button id="prev-page" class="btn btn-secondary" disabled>
+                  Previous
+                </button>
+                <span class="pagination-info">
+                  Page <span id="current-page">1</span> of
+                  <span id="total-pages">1</span> (<span id="total-posts"
+                    >0</span
+                  >
+                  posts)
+                </span>
+                <button id="next-page" class="btn btn-secondary" disabled>
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit-view" class="content-view">
+            <div class="view-header">
+              <h2 id="edit-title">Create New Post</h2>
+              <button id="back-to-posts" class="btn btn-secondary">
+                Back to Posts
+              </button>
+            </div>
+
+            <form id="post-form" class="post-form">
+              <input type="hidden" id="edit-post-id" />
+
+              <div class="input-group">
+                <label for="post-title">Title *</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  name="title"
+                  required
+                  minlength="3"
+                  maxlength="200"
+                />
+                <span class="error-message" id="title-error"></span>
+                <small class="input-help">Minimum 3 characters required</small>
+              </div>
+
+              <div class="input-group">
+                <label for="post-body">Content *</label>
+                <textarea
+                  id="post-body"
+                  name="body"
+                  required
+                  minlength="10"
+                  rows="8"
+                ></textarea>
+                <span class="error-message" id="body-error"></span>
+                <small class="input-help">Minimum 10 characters required</small>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="submit-btn">
+                  Create Post
+                </button>
+                <button type="button" class="btn btn-secondary" id="reset-btn">
+                  Reset
+                </button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="js/appState.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/postsManager.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>
